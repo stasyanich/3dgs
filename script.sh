@@ -1,18 +1,22 @@
 #!/bin/bash
+VIDEO_FILE_NAME=""
 
-mkdir /home/gaus
-mkdir /home/gaus/dataset
-mkdir /home/gaus/prepared-frames
-mkdir /home/gaus/prepared-frames/input
-for i in /workspace/video/*; \
-do ffmpeg -i "$i" -qscale:v 1 -qmin 1 -vf fps="$ENV_FRAME_TO_SEC" /home/gaus/prepared-frames/input/%04d.jpg; \
+VIDEO_FOLDER=/workspace/video
+MAIN_DIR=/home/gaus/prepared-frames
+
+mkdir -p "${MAIN_DIR}"/input
+cd "${VIDEO_FOLDER}"/ || exit 1
+for file in *; \
+do VIDEO_FILE_NAME+="$file"_ && ffmpeg -i "$file" -qscale:v 1 -qmin 1 -vf fps="${ENV_FRAME_TO_SEC}" "${MAIN_DIR}"/input/"$file"_%04d.jpg; \
 done
 
-time python3 /gaussian-splatting/convert.py -s /home/gaus/prepared-frames/
-time 7z a -tzip /workspace/"$FILE_NAME"_"$ENV_FRAME_TO_SEC"frames.zip /home/gaus/prepared-frames/ -xr!input
+RESULT_FILE="${VIDEO_FILE_NAME}"_"${ENV_FRAME_TO_SEC}"_frames_colmapped.zip
+
+time python3 /gaussian-splatting/convert.py -s "${MAIN_DIR}"/
+time 7z a -tzip /workspace/"${RESULT_FILE}" "${MAIN_DIR}"/. -xr!input
 
 rm -rf /home/gaus/
-echo "it's DONE! see:" "$FILE_NAME"_"$ENV_FRAME_TO_SEC"frames.zip
+echo "it's DONE! see:" "${RESULT_FILE}"
 #
 #
 #
