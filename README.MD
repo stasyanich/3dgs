@@ -11,7 +11,7 @@ variable `FILE_NAME` is name output zip file
 
 ```bash
 docker run -tid --gpus all \
---name video_colmap_converter -v /home/stanislav/work:/workspace colmap-transfer:1.0.1 \
+--name video_colmap_converter -v /home/stanislav/work:/workspace mosstnslv/colmap-transfer:1.0.1 \
 bash
 ```
 
@@ -22,7 +22,7 @@ docker exec -it -e "ENV_FRAME_TO_SEC=2" -e "FILE_NAME=parking" video_colmap_conv
 # OR
 
 ```bash
-docker run -tid --gpus all -v /home/stanislav/work:/workspace colmap-transfer:1.0.1 bash
+docker run -tid --gpus all -v /home/stanislav/work:/workspace mosstnslv/colmap-transfer:1.0.1 bash
 ```
 
 ```bash
