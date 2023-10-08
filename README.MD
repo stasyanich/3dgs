@@ -1,7 +1,7 @@
 ```bash
 mkdir gaussian_splatting
 cd gaussian_splatting
-wget https://raw.githubusercontent.com/()/docker/Dockerfile
+wget https://raw.githubusercontent.com/stasyanich/3dgs/master/Dockerfile
 docker build -t mosstnslv/colmap-transfer:1.0.1 .
 docker push mosstnslv/colmap-transfer:1.0.1
 
